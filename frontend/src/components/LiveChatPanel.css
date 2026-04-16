@@ -1,0 +1,145 @@
+.livechat {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.livechat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.livechat-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.livechat-status {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.livechat-status.live {
+  color: rgba(80, 255, 160, 0.85);
+}
+.livechat-status.connecting {
+  color: rgba(255, 210, 120, 0.9);
+}
+.livechat-status.offline {
+  color: rgba(255, 120, 120, 0.9);
+}
+
+.livechat-reactions {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.reaction-btn {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+.reaction-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.livechat-stage {
+  position: relative;
+  height: 20px;
+  margin: 0.5rem 0;
+}
+.reaction-float {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: livechat-pop 3.2s ease-out forwards;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.reaction-name {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@keyframes livechat-pop {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-26px);
+    opacity: 0;
+  }
+}
+
+.livechat-feed {
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.livechat-empty {
+  padding: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.livechat-msg {
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.livechat-msg:first-child {
+  border-top: none;
+}
+.livechat-msg .meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.livechat-msg .name {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.livechat-msg .time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.livechat-msg .text {
+  margin-top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.livechat-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.livechat-form input {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem;
+}
+
