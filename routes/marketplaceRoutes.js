@@ -278,6 +278,80 @@ router.patch("/storefronts/:id", uploadStorefrontAssets, async (req, res) => {
   }
 });
 
+/** Seller: delete storefront (and its products) */
+router.delete("/storefronts/:id", async (req, res) => {
+  try {
+    const sellerId = requireSellerId(req);
+    if (!sellerId) {
+      res
+        .status(400)
+        .json({ error: "Provide sellerId query or x-seller-id header." });
+      return;
+    }
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400).json({ error: "Invalid storefront id." });
+      return;
+    }
+
+    const storefront = await SellerStorefrontModel.findOne({
+      _id: req.params.id,
+      sellerId,
+    });
+    if (!storefront) {
+      res.status(404).json({ error: "Storefront not found." });
+      return;
+    }
+
+    await StorefrontProductModel.deleteMany({ storefrontId: storefront._id });
+    await storefront.deleteOne();
+    res.status(204).send();
+  } catch (error) {
+    console.error("DELETE /storefronts/:id failed:", error);
+    res.status(500).json({ error: "Failed to delete storefront." });
+  }
+});
+
+/** Public: list products for a storefront (by storefront id OR slug) */
+router.get("/storefronts/:slugOrId/products", async (req, res) => {
+  try {
+    const storefront = await loadStorefrontBySlugOrId(req.params.slugOrId);
+    if (!storefront) {
+      res.status(404).json({ error: "Storefront not found." });
+      return;
+    }
+    const products = await StorefrontProductModel.find({
+      storefrontId: storefront._id,
+    })
+      .sort({ updatedAt: -1 })
+      .lean();
+    res.json({ storefront, products });
+  } catch (error) {
+    console.error("GET /storefronts/:slugOrId/products failed:", error);
+    res.status(500).json({ error: "Failed to load storefront products." });
+  }
+});
+
+/** Public: get a single product by id */
+router.get("/products/:productId", async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.productId)) {
+      res.status(400).json({ error: "Invalid product id." });
+      return;
+    }
+    const product = await StorefrontProductModel.findById(
+      req.params.productId
+    ).lean();
+    if (!product) {
+      res.status(404).json({ error: "Product not found." });
+      return;
+    }
+    res.json({ product });
+  } catch (error) {
+    console.error("GET /products/:productId failed:", error);
+    res.status(500).json({ error: "Failed to load product." });
+  }
+});
+
 /** Seller: add product */
 router.post(
   "/storefronts/:storefrontId/products",

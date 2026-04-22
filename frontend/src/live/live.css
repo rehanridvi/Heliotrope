@@ -1,0 +1,40 @@
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-140px);
+    opacity: 0;
+  }
+}
+
+.live-float-up {
+  animation: floatUp 2s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.buyer-live-shell {
+  background:
+    radial-gradient(900px 500px at 8% 8%, rgba(217, 70, 239, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 92% 12%, rgba(34, 211, 238, 0.1), transparent 55%),
+    radial-gradient(1000px 500px at 50% 100%, rgba(99, 102, 241, 0.1), transparent 60%),
+    linear-gradient(180deg, #f8fafc 0%, #f3f4f6 45%, #eef2ff 100%);
+}
+
+.buyer-live-title {
+  background: linear-gradient(90deg, #f5d0fe 0%, #ddd6fe 45%, #a5f3fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.buyer-live-glass-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.85));
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(14px);
+}
+

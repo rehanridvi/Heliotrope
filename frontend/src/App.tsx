@@ -1,35 +1,48 @@
-import { useState } from 'react';
-import { LayoutGrid, Store } from 'lucide-react';
+import { LayoutGrid, Radio, Store } from 'lucide-react';
+import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import ClosetView from './ClosetView';
 import Marketplace from './Marketplace';
+import LiveDiscoveryPage from './live/LiveDiscoveryPage';
+import BuyerLivePage from './live/BuyerLivePage';
+import SellerLivePage from './live/SellerLivePage';
 import './App.css';
 
 export default function App() {
-  const [view, setView] = useState<'closet' | 'marketplace'>('closet');
-
   return (
     <div className="app-container">
       <header className="glass app-global-nav">
         <div className="header-content">
           <div className="app-nav-pills">
-            <button
-              type="button"
-              className={view === 'closet' ? 'nav-pill active' : 'nav-pill'}
-              onClick={() => setView('closet')}
+            <NavLink
+              to="/closet"
+              className={({ isActive }) => (isActive ? 'nav-pill active' : 'nav-pill')}
             >
               <LayoutGrid size={18} /> Digital Closet
-            </button>
-            <button
-              type="button"
-              className={view === 'marketplace' ? 'nav-pill active' : 'nav-pill'}
-              onClick={() => setView('marketplace')}
+            </NavLink>
+            <NavLink
+              to="/marketplace"
+              className={({ isActive }) => (isActive ? 'nav-pill active' : 'nav-pill')}
             >
               <Store size={18} /> Marketplace
-            </button>
+            </NavLink>
+            <NavLink
+              to="/live"
+              className={({ isActive }) => (isActive ? 'nav-pill active' : 'nav-pill')}
+            >
+              <Radio size={18} /> Live
+            </NavLink>
           </div>
         </div>
       </header>
-      {view === 'closet' ? <ClosetView /> : <Marketplace />}
+      <Routes>
+        <Route path="/" element={<Navigate to="/closet" replace />} />
+        <Route path="/closet" element={<ClosetView />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/live" element={<LiveDiscoveryPage />} />
+        <Route path="/live/:channelName" element={<BuyerLivePage />} />
+        <Route path="/seller/live" element={<SellerLivePage />} />
+        <Route path="*" element={<Navigate to="/closet" replace />} />
+      </Routes>
     </div>
   );
 }

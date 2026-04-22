@@ -32,7 +32,11 @@ export type RealtimeClientEvents = {
 export function createRealtimeSocket(): Socket<RealtimeEvents, RealtimeClientEvents> {
   return io(API_ORIGIN, {
     withCredentials: true,
-    transports: ['websocket', 'polling'],
+    transports: ['websocket'],
+    reconnection: true,
+    reconnectionDelay: 100,
+    reconnectionDelayMax: 500,
+    reconnectionAttempts: Infinity,
   });
 }
 

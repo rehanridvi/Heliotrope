@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-export const API_ORIGIN = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Backend default (see `HelioTrope/server.js`: PORT defaults to 1224).
+// In dev/prod you can override with VITE_API_URL, e.g. http://localhost:1224
+export const API_ORIGIN =
+  import.meta.env.VITE_API_URL || 'http://localhost:1224';
 const API_BASE = `${API_ORIGIN}/api/closet`;
 
 export const api = axios.create({
