@@ -1,0 +1,15 @@
+{
+  "name": "heliotrope-merged",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "start:server": "cd server && npm start"
+  },
+  "dependencies": {
+    "lucide-react": "^1.11.0"
+  }
+}
